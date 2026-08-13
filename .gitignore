@@ -3,3 +3,5 @@ __pycache__/
 .DS_Store
 Thumbs.db
 *.log
+# CI 工作流待 workflow 权限 token 后提交，暂缓入库
+/.github/
