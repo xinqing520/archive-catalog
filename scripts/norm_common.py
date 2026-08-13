@@ -33,9 +33,8 @@ def norm_dh(s):
     s = s.replace("1012-s", "1012-ws").replace("1012-vs", "1012-ws")
     s = s.replace("1001-IS", "1001-WS").replace("-030-", "-D30-")
     s = s.replace("200S", "2006").replace("1996--", "1996-y-")
-    # ws 后各种分隔符统一为 ·
-    s = re.sub(r"ws[。，、＝→. ]", "ws·", s, flags=re.I)
-    s = s.replace("ws-", "ws·").replace("ws_", "ws·")
+    # ws 后各种分隔符统一为 ·（含连字符、不区分大小写）
+    s = re.sub(r"ws[。，、＝→.\-_ ]", "ws·", s, flags=re.I)
     m = re.fullmatch(r"(\d{4})-([A-Za-z]+)·(\d{4})-([A-Za-z0-9]+)-(\d{1,4})", s)
     if m:
         qzh, ws, yr, code, no = m.groups()

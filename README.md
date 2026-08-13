@@ -27,15 +27,28 @@
 
 ## 📦 安装
 
-### 方式一：git clone（推荐）
+### 方式一：一键安装脚本（推荐）
+
+```bash
+bash install.sh
+```
+
+### 方式二：git clone
 
 ```bash
 git clone https://github.com/xinqing520/archive-catalog.git ~/.claude/skills/archive-catalog
 ```
 
-### 方式二：手动复制
+### 方式三：手动复制
 
 将本仓库 `archive-catalog` 目录整体复制到 `~/.claude/skills/` 下。
+
+### 方式四：/plugin（实验性）
+
+```jsonc
+// ~/.claude/settings.json
+{ "extraKnownMarketplaces": { "github": "xinqing520/archive-catalog" } }
+```
 
 ### 验证安装
 
@@ -65,10 +78,30 @@ python _build_归档.py 安福县总工会.xlsx 新批次.xlsx
 
 > ⚠️ **关键**：合并新批次必须基于**已确认的成品**，不得从原始源重新生成——否则会把用户已取消的高亮全部重放。
 
-### 场景三：用规范化脚本模板
+### 场景三：一体化 CLI（推荐）
+
+```bash
+# 新建成品（从源文件构建，按 年度×期限 分 Sheet）
+python scripts/archive_cli.py build 成品.xlsx 源文件1.xlsx [源文件2.xlsx ...]
+
+# 并入新批次（自动备份，基于已确认成品）
+python scripts/archive_cli.py merge 总目录.xlsx 新批次.xlsx
+
+# 最终校验（Sheet/件数/序号/档号/日期/页数/高亮）
+python scripts/archive_cli.py check 成品.xlsx
+
+# 列出 / 清除黄色高亮
+python scripts/archive_cli.py highlight 成品.xlsx
+python scripts/archive_cli.py highlight 成品.xlsx --clear
+```
+
+> 全宗号在 `scripts/archive_cli.py` 顶部 `QUANZONG` 修改（总工会 1031 / 县委办 1001 / 统战部 1012）。
+
+### 场景四：用规范化脚本模板
 
 ```bash
 python scripts/norm_common.py   # 运行自测（10 项全过）
+python -m pytest scripts/test_norm_common.py   # 完整回归测试（需安装 pytest）
 ```
 
 ```python
@@ -89,9 +122,19 @@ archive-catalog/
 │   ├── format-adaptation.md  # 格式差异应对（陌生/不同格式源文件如何识别适配）
 │   └── ocr-fixes.md          # OCR 修正清单（通用 + 各单位积累）
 ├── scripts/
-│   └── norm_common.py        # 通用字段规范化函数模板（档号/文号/题名/责任者/页数/日期）
+│   ├── archive_cli.py        # 一体化 CLI（build/merge/check/highlight）
+│   ├── norm_common.py        # 通用字段规范化函数模板
+│   └── test_norm_common.py   # pytest 单测
 ├── examples/
-│   └── example.md            # 处理效果示例与典型 OCR 错例
+│   ├── example.md            # 处理效果示例与典型 OCR 错例
+│   ├── 源文件示例.xlsx       # 真实小型源文件（含 OCR 噪音与高亮）
+│   ├── 成品示例.xlsx         # 规范化后的成品
+│   ├── processing-log.md     # 处理日志模板
+│   └── acceptance.md         # 验收流程文档
+├── .github/workflows/ci.yml  # GitHub Actions 自动测试
+├── _meta.json                # skill 元数据
+├── install.sh                # 一键安装脚本
+├── CHANGELOG.md              # 版本变更记录
 ├── README.md
 ├── LICENSE
 └── .gitignore

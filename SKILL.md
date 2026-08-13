@@ -107,8 +107,10 @@ description: 处理档案电子目录（Excel 归档文件目录/卷内文件目
 **关键：合并新批次必须基于用户已确认的成品，不得从原始源重新生成**（否则会重放用户已取消的高亮）。
 
 ```
-备份成品 → python _build_归档.py 成品.xlsx 新文件.xlsx → 处理新批次异常日期/高亮 → 校验
+备份成品 → python scripts/archive_cli.py merge 成品.xlsx 新文件.xlsx → 处理新批次异常日期/高亮 → python scripts/archive_cli.py check 成品.xlsx
 ```
+
+> `scripts/archive_cli.py` 集成 build/merge/check/highlight 四个命令，全宗号在文件顶部 QUANZONG 修改。
 
 ### 8. 最终校验清单
 

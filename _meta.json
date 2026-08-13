@@ -1,0 +1,26 @@
+{
+  "name": "archive-catalog",
+  "description": "处理档案电子目录（Excel 归档文件目录/卷内文件目录/案卷目录）的批处理与校验。触发于「处理档案目录」「归档目录」「档号规范化」「合并总目录」「OCR修正」等场景。适用于各单位（如总工会、县委办、宣传部、统战部）的档案目录成品构建、批次并入与最终校验。",
+  "version": "1.0.0",
+  "author": "xinqing520",
+  "license": "MIT",
+  "repository": "https://github.com/xinqing520/archive-catalog",
+  "homepage": "https://github.com/xinqing520/archive-catalog",
+  "keywords": [
+    "archive",
+    "catalog",
+    "档案",
+    "电子目录",
+    "OCR",
+    "excel",
+    "skill"
+  ],
+  "category": "document-processing",
+  "triggers": [
+    "处理档案目录",
+    "归档目录",
+    "档号规范化",
+    "合并总目录",
+    "OCR修正"
+  ]
+}
